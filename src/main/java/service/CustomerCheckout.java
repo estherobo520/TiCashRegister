@@ -4,9 +4,10 @@ import model.Item;
 import model.Receipt;
 
 public class CustomerCheckout {
-    private Receipt receipt;
+    private static Receipt receipt;
 
     public CustomerCheckout(String storeName, String storeNumber) {
+
         receipt = new Receipt(storeName, storeNumber);
     }
 

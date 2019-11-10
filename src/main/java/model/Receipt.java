@@ -6,10 +6,15 @@ import java.util.Date;
 
 public class Receipt {
 
+   /* //json code
+        "StoreName": "Target",
+        "totalPrice": 2.99,
+    }*/
+
     private String storeName;
     private String storeNumber;
-    private Double totalPrice;
-    private Integer totalItems;
+    private Double totalPrice = 0.0;
+    private Integer totalItems = 1;
     private Date date;
     private CsLinkedList<Item> itemList;
 
@@ -42,7 +47,7 @@ public class Receipt {
         this.storeNumber = storeNumber;
         itemList = new CsLinkedList<Item>();
         totalItems = 0;
-        totalItems = 0;
+        totalPrice = 0.0;
         date = new Date();
     }
 

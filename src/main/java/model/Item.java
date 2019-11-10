@@ -11,4 +11,9 @@ public class Item {
     public String getDescription() {
         return description;
     }
+
+    public Item(double price, String description) {
+        this.price = price;
+        this.description = description;
+    }
 }

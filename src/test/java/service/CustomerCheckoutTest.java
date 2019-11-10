@@ -1,32 +1,40 @@
 package service;
 
+import CsLinkedList.CsLinkedList;
+import model.Item;
 import model.Receipt;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerCheckoutTest {
 
-    private CustomerCheckout customerCheckout;
+    @Mock
+    Receipt receipt;
 
-    private Receipt receipt;
     @Test
-    public void firstTestWeWrite() {
+    public void testWithMocking() throws IllegalAccessException {
+        CsLinkedList<Item> list = new CsLinkedList<Item>();
+        list.add(new Item(0.1, ""));
 
-        receipt = new Receipt("storeName" ,"storeNum");
+        when(receipt.getStoreNumber()).thenReturn("store");
+        when(receipt.getItemList()).thenReturn(list);
 
-        assertEquals("storeNum", receipt.getStoreNumber());
-    }
+        CustomerCheckout customerCheckout = new CustomerCheckout("1", "1");
+        customerCheckout.scanAnItem(new Item(0.1, ""));
+        verify(receipt).add(new Item(0.1, ""));
 
-    public int add (int x, int y) {
-        return x + y;
+        customerCheckout.scanAnItem(new Item(0.1, ""), 10);
+        verify(receipt, times(10)).add(any(Item.class));
+        customerCheckout.endTransaction();
     }
 
 }
